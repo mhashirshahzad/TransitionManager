@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-signal transiton_finsihed
+signal transition_finished
 signal transition_fully_finished
 
 @onready var color_rect = $ColorRect
@@ -37,17 +37,22 @@ func _on_animation_player_animation_finished(anim_name : String):
 		
 func transition_scene_packed(scene : PackedScene) -> void:
 	start_transition()
-	await transiton_finsihed
+	await transition_finished
 	get_tree().change_scene_to_packed(scene)
 
 func transition_scene_file(scene_path : String) -> void:
 	start_transition()
-	await transiton_finsihed
+	await transition_finished
 	get_tree().change_scene_to_file(scene_path)
+
+func transition_reload_current_scene() -> void:
+	start_transition()
+	await transition_finished
+	get_tree().reload_current_scene()
 
 ## DONT CALL PLAYS THE FADE IN ANIMATION FOR THE FADE OUT ANIMATION
 func play_fade_in_animation(anim_name : String):
-	transiton_finsihed.emit()	
+	transition_finished.emit()	
 	anim_name = anim_name.replace("fade_out", "fade_in")
 	print_debug(anim_name)
 	
