@@ -54,7 +54,7 @@ func transition_reload_current_scene() -> void:
 func play_fade_in_animation(anim_name : String):
 	transition_finished.emit()	
 	anim_name = anim_name.replace("fade_out", "fade_in")
-	print_debug(anim_name)
+	custom_print(anim_name)
 	
 	animation_player.play(anim_name)
 	#match anim_name:
@@ -71,3 +71,11 @@ func play_fade_in_animation(anim_name : String):
 			#animation_player.play("fade_in_hex")
 		#"_saw":
 			#animation_player.play("fade_in_saw")
+
+static func custom_print(...args) -> void:
+	var output := "[color=blue][TransitionManager][/color] "
+	
+	for arg in args:
+		output += str(arg)
+		
+	print_rich(output)
